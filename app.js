@@ -7,7 +7,7 @@ let ok = document.getElementById('ok')
 let modal = document.getElementById('modal')
 let textarea = document.getElementById('textarea')
 
-const duration = 1 * 1000
+const duration = 5 * 1000
 
 let answers = [
   'สาธารณะสุข',
