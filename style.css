@@ -20,7 +20,7 @@
 }
 
 .is-spining {
-  animation: spin 0.5s linear infinite;
+  animation: spin 200ms linear infinite;
 }
 
 @keyframes spin {

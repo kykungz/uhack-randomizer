@@ -157,3 +157,9 @@ ok.addEventListener('click', () => {
   answers = list === '' ? [] : list.split('\n')
   modal.style.display = 'none'
 })
+
+window.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    onRandom()
+  }
+})
