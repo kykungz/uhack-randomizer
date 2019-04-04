@@ -10,12 +10,12 @@ let textarea = document.getElementById('textarea')
 const duration = 5 * 1000
 
 let answers = [
-  'สาธารณะสุข',
-  'การศึกษา',
-  'คมนาคม',
-  'การเงิน',
-  'การเกษตร',
-  'การท่องเที่ยว'
+  'HEALTH',
+  'FINANCE',
+  'ENVIRONMENT',
+  'EDUCATION',
+  'TRANSPORTATION',
+  'AGRICULTURE'
 ]
 
 const eng = 'abcdefghijklmnopqrstuvwxyz'
@@ -33,11 +33,9 @@ const vowel = `ะ
 ใ
 ไ
 โ`
-const thai = 'กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ' + vowel + eng
+const thai = 'กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮ'
 
-const letters = _.shuffle(
-  (thai + eng + vowel).replace(/\s+/g, '').split('')
-).join('')
+const letters = _.shuffle(eng.replace(/\s+/g, '').split('')).join('')
 
 text.innerText = 'UHACK KASETSART'
 
@@ -51,16 +49,23 @@ const randomBoolean = () => {
 
 const addLetter = () => {
   changeBg()
-  const letter = letters[randomInt(letters.length)]
-  text.innerText += Math.random() > 0.5 ? letter : letter.toUpperCase()
+  // const letter = letters[randomInt(letters.length)]
+  const ls = answers.join('')
+  const letter = ls[randomInt(ls.length)]
+  // text.innerText += randomBoolean() ? letter : letter.toUpperCase()
+  text.innerText += letter.toUpperCase()
 }
 
 const changeLetter = () => {
   changeBg()
+  // const letter = letters[parseInt(randomInt(letters.length))]
+  const ls = answers.join('')
+  const letter = ls[randomInt(ls.length)].toUpperCase()
+
   const index = parseInt(randomInt(text.innerText.length))
   text.innerText =
     text.innerText.substring(0, index) +
-    letters[parseInt(randomInt(letters.length))] +
+    letter +
     text.innerText.substring(index + 1, text.innerText.length)
 }
 
@@ -159,7 +164,7 @@ ok.addEventListener('click', () => {
 })
 
 window.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
+  if (e.key === 'Enter' && modal.style.display !== 'flex') {
     onRandom()
   }
 })
