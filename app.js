@@ -12,7 +12,7 @@ let pop = new Audio('./sounds/pop.mp4')
 
 let isRunning = false
 
-const duration = 6 * 1000
+const duration = 8 * 1000
 
 let answers = [
   'HEALTH',
@@ -22,6 +22,21 @@ let answers = [
   'TRANSPORTATION',
   'AGRICULTURE'
 ]
+
+// let answers = [
+//   '05MIPSBasicArch.pdf',
+//   'develop(er) drop java',
+//   'Fallup zerotohundred',
+//   'Insomnia',
+//   'PleaseWork',
+//   'Uhack my heart',
+//   'Unreal Production',
+//   'Veronica',
+//   'YEET',
+//   'เจ้าแมงกินฟันกัดมันเลยลูก',
+//   'นั่งเล่น',
+//   'น้ำมะเหนียก'
+// ]
 
 const eng = 'abcdefghijklmnopqrstuvwxyz'
 const vowel = `ะ
@@ -91,15 +106,14 @@ const complete = () => {
 
   const answer = answers[randomInt(answers.length)]
 
-  const found = answers.indexOf(answer)
-  if (found > -1) {
-    answers.splice(found, 1)
-  }
-
   let index = 0
   let loop = setInterval(() => {
     playPop()
     if (text.innerText === answer) {
+      const found = answers.indexOf(answer)
+      if (found > -1) {
+        answers.splice(found, 1)
+      }
       isRunning = false
       clearInterval(loop)
       logo.classList.remove('is-spining')
@@ -108,6 +122,7 @@ const complete = () => {
       randomButton.disabled = false
       return
     }
+
     if (text.innerText.length < answer.length) {
       addLetter()
     } else if (text.innerText.length > answer.length) {
@@ -115,15 +130,18 @@ const complete = () => {
     } else {
       text.innerText =
         text.innerText.substring(0, index) +
-        answer[index++] +
+        answer[index] +
         text.innerText.substring(index + 1, text.innerText.length)
+      index++
     }
   }, 200)
 }
 
 const changeBg = () => {
   bgTop.style.backgroundPosition = `${randomInt(100)}vw ${randomInt(20)}vh`
-  bgTop.style.backgroundImage = `url('./images/template-bg${randomInt(13)}.png')`
+  bgTop.style.backgroundImage = `url('./images/template-bg${randomInt(
+    13
+  )}.png')`
   bg.style.backgroundPosition = `${randomInt(100)}vw ${randomInt(20)}vh`
   bg.style.backgroundImage = `url('./images/template-bg${randomInt(13)}.png')`
 }
@@ -152,6 +170,9 @@ const onRandom = () => {
 
     if (text.innerText.length > 20) {
       return removeLetter(5)
+    }
+    if (text.innerText.length < 5) {
+      return addLetter()
     }
     const random = Math.random()
     if (random < 1 / 3) {
