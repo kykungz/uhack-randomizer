@@ -7,7 +7,12 @@ let ok = document.getElementById('ok')
 let modal = document.getElementById('modal')
 let textarea = document.getElementById('textarea')
 
-const duration = 5 * 1000
+let award = new Audio('./sounds/award.mp4')
+let pop = new Audio('./sounds/pop.mp4')
+
+let isRunning = false
+
+const duration = 6 * 1000
 
 let answers = [
   'HEALTH',
@@ -93,7 +98,9 @@ const complete = () => {
 
   let index = 0
   let loop = setInterval(() => {
+    playPop()
     if (text.innerText === answer) {
+      isRunning = false
       clearInterval(loop)
       logo.classList.remove('is-spining')
       randomButton.classList.add('is-error')
@@ -116,14 +123,21 @@ const complete = () => {
 
 const changeBg = () => {
   bgTop.style.backgroundPosition = `${randomInt(100)}vw ${randomInt(20)}vh`
-  bgTop.style.backgroundImage = `url('./images/template-bg${randomInt(11) +
-    1}.png')`
+  bgTop.style.backgroundImage = `url('./images/template-bg${randomInt(13)}.png')`
   bg.style.backgroundPosition = `${randomInt(100)}vw ${randomInt(20)}vh`
-  bg.style.backgroundImage = `url('./images/template-bg${randomInt(11) +
-    1}.png')`
+  bg.style.backgroundImage = `url('./images/template-bg${randomInt(13)}.png')`
+}
+
+const playPop = () => {
+  pop = new Audio('./sounds/pop.mp4')
+  pop.play()
 }
 
 const onRandom = () => {
+  let counter = 0
+  isRunning = true
+  award.play()
+
   randomButton.classList.remove('is-error')
   randomButton.classList.add('is-disabled')
   randomButton.disabled = true
@@ -131,6 +145,11 @@ const onRandom = () => {
   logo.classList.add('is-spining')
 
   let interval = setInterval(() => {
+    counter += 1 % 2
+    if (counter % 2 === 0) {
+      playPop()
+    }
+
     if (text.innerText.length > 20) {
       return removeLetter(5)
     }
@@ -164,7 +183,7 @@ ok.addEventListener('click', () => {
 })
 
 window.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && modal.style.display !== 'flex') {
+  if (e.key === 'Enter' && modal.style.display !== 'flex' && !isRunning) {
     onRandom()
   }
 })
