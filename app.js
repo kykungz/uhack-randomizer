@@ -14,22 +14,32 @@ let isRunning = false
 
 const duration = 0 * 1000
 
-let answers = ['1', '2', '3', '4']
+// let answers = ['1', '2', '3', '4']
 
-// let answers = [
-//   '05MIPSBasicArch.pdf',
-//   'develop(er) drop java',
-//   'Fallup zerotohundred',
-//   'Insomnia',
-//   'PleaseWork',
-//   'Uhack my heart',
-//   'Unreal Production',
-//   'Veronica',
-//   'YEET',
-//   'เจ้าแมงกินฟันกัดมันเลยลูก',
-//   'นั่งเล่น',
-//   'น้ำมะเหนียก'
-// ]
+let answers = [
+  'ศุภวิชญ์ เเสงสุวรรณ',
+  'Leon Ongfong',
+  'Mint Narisa',
+  'Punsita Bualert',
+  'Sarunyu Chankong',
+  'Chalermchon Onbua',
+  'Chomtana Chanjaraswichai',
+  'Jiraporn Kowuttitam',
+  'Sern Chinnawong',
+  'Jirawan Chuapradit',
+  'Samatchaya Jai-in',
+  'รล. ร. ล.',
+  'Sitsakul Amaro',
+  'Setthwut Prasobpiboon',
+  'Kittiya Ku-kiattikun',
+  'Sukibong Phobia',
+  'Ping-Ping Pusith Rattanakosol',
+  'Narawit Boonsorn',
+  'Mix Chattarin',
+  'Authapong Somboonwarakon',
+  'Anawin Wongsadit',
+  'Bankkeez Stk'
+]
 
 const eng = 'abcdefghijklmnopqrstuvwxyz'
 const vowel = `ะ
@@ -104,7 +114,6 @@ const complete = () => {
   let loop = setInterval(() => {
     counter++
     delay += 30
-    console.log(delay, threshold)
 
     if (delay >= threshold) {
       changeBg()
