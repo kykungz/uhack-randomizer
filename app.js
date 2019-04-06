@@ -12,22 +12,9 @@ let pop = new Audio('./sounds/pop.mp4')
 
 let isRunning = false
 
-const duration = 8 * 1000
+const duration = 0 * 1000
 
-let answers = [
-  'HEALTH',
-  'FINANCE',
-  'ENVIRONMENT',
-  'EDUCATION',
-  'TRANSPORTATION',
-  'AGRICULTURE',
-  'HEALTH',
-  'FINANCE',
-  'ENVIRONMENT',
-  'EDUCATION',
-  'TRANSPORTATION',
-  'AGRICULTURE'
-]
+let answers = ['1', '2', '3', '4']
 
 // let answers = [
 //   '05MIPSBasicArch.pdf',
@@ -110,37 +97,39 @@ const complete = () => {
     return (text.innerText = 'สุ่มหมดละจ้า')
   }
 
-  const answer = answers[randomInt(answers.length)]
+  let delay = 0
+  let threshold = 1
+  let counter = 0
 
-  let index = 0
   let loop = setInterval(() => {
-    playPop()
-    if (text.innerText === answer) {
-      const found = answers.indexOf(answer)
-      if (found > -1) {
-        answers.splice(found, 1)
-      }
-      isRunning = false
+    counter++
+    delay += 30
+    console.log(delay, threshold)
+
+    if (delay >= threshold) {
+      changeBg()
+      playPop()
+      text.innerText = answers[randomInt(answers.length)]
+      threshold += threshold * 0.05
+      delay = 0
+    }
+
+    if (threshold > 200) {
       clearInterval(loop)
       logo.classList.remove('is-spining')
       randomButton.classList.add('is-error')
       randomButton.classList.remove('is-disabled')
       randomButton.disabled = false
-      return
-    }
+      isRunning = false
 
-    if (text.innerText.length < answer.length) {
-      addLetter()
-    } else if (text.innerText.length > answer.length) {
-      removeLetter()
-    } else {
-      text.innerText =
-        text.innerText.substring(0, index) +
-        answer[index] +
-        text.innerText.substring(index + 1, text.innerText.length)
-      index++
+      const answer = answers[randomInt(answers.length)]
+      const found = answers.indexOf(answer)
+      if (found > -1) {
+        answers.splice(found, 1)
+      }
+      text.innerText = answer
     }
-  }, 200)
+  }, 60)
 }
 
 const changeBg = () => {
@@ -173,21 +162,7 @@ const onRandom = () => {
     if (counter % 2 === 0) {
       playPop()
     }
-
-    if (text.innerText.length > 20) {
-      return removeLetter(5)
-    }
-    if (text.innerText.length < 5) {
-      return addLetter()
-    }
-    const random = Math.random()
-    if (random < 1 / 3) {
-      changeLetter()
-    } else if (random < 2 / 3) {
-      addLetter()
-    } else {
-      removeLetter()
-    }
+    text.innerText = answers[randomInt(answers.length)]
   }, 60)
 
   setTimeout(() => {
